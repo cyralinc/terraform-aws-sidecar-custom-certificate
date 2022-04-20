@@ -1,0 +1,10 @@
+# Terraform ephemeral files
+.terraform*
+terraform.tfstate*
+
+# Terraform variables
+*.tfvars
+
+# Emacs ephemeral files
+*~
+*#

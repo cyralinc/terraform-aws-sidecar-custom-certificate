@@ -1,29 +1,53 @@
-# template-repo
+# Cyral Sidecar Certificate UserProvided module for Terraform
 
-Use this template to create new repositories in our organization. **After** creating the new repo, follow the steps below:
+## Usage
 
-* [Create a personal access token in your GitHub account](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token) and enable all `repo` scope permissions;
-* Assign the access token value and the repository name to the following script and run it:
+```hcl
+module "cyral_sidecar_certificate_userprovided" {
+  source  = "cyralinc/sidecar-certificate-userprovided/cyral"
+  version = ">= 1.0.0"
 
-```
-ACCESS_TOKEN=your_access_token
-REPO=your_repo_name
-
-echo "Defining repo configuration settings..."
-curl -X PATCH \
-     -H "Authorization: token $ACCESS_TOKEN" \
-     -H "Accept: application/vnd.github.v3+json" \
-     -d '{"has_wiki":false,"has_projects":false,"has_issues":false,"allow_squash_merge":true,"allow_merge_commit":false,"allow_rebase_merge":false,"delete_branch_on_merge":true,"auto_merge":false}' \
-     https://api.github.com/repos/cyralinc/${REPO}
-
-echo "Defining protection rules for 'main' branch..."
-curl -X PUT \
-     -H "Authorization: token $ACCESS_TOKEN" \
-     -H "Accept: application/vnd.github.luke-cage-preview+json" \
-     -d '{"required_status_checks":null,"enforce_admins":true,"required_pull_request_reviews":{"required_approving_review_count":1},"restrictions":null}' \
-     https://api.github.com/repos/cyralinc/${REPO}/branches/main/protection
+  user_managed_certificate = "-----BEGIN CERTIFICATE-----<certificate content>-----END CERTIFICATE-----"
+  user_managed_private_key = "-----BEGIN PRIVATE KEY-----<pkey content>-----END PRIVATE KEY-----"
+}
 ```
 
-* Update this file and define a `README.md` that suits your new repository.
+## Requirements
 
-* Set parameter `jira-prefixes` in [releases.yaml](.github/workflows/releases.yaml) accordingly to the Jira projects that should be referenced.
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.13.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 3.22.0 |
+| <a name="requirement_random"></a> [random](#requirement\_random) | >= 3.1.0 |
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.10.0 |
+| <a name="provider_random"></a> [random](#provider\_random) | 3.1.2 |
+
+## Modules
+
+No modules.
+
+## Resources
+
+| Name | Type |
+|------|------|
+| [aws_secretsmanager_secret.certificate_secret](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret) | resource |
+| [aws_secretsmanager_secret_version.certificate_secret](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret_version) | resource |
+| [random_id.current](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/id) | resource |
+
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_user_managed_certificate"></a> [user\_managed\_certificate](#input\_user\_managed\_certificate) | Base64-encoded full certificate chain. The user is responsible to manage its validity and renewal. | `string` | n/a | yes |
+| <a name="input_user_managed_private_key"></a> [user\_managed\_private\_key](#input\_user\_managed\_private\_key) | Base64-encoded private key. The user is responsible to manage its validity and renewal. | `string` | n/a | yes |
+
+## Outputs
+
+| Name | Description |
+|------|-------------|
+| <a name="output_secret_id"></a> [secret\_id](#output\_secret\_id) | Secret containing the sidecar certificate |
