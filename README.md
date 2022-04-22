@@ -1,14 +1,53 @@
-# Cyral Sidecar Certificate UserProvided module for Terraform
+# Cyral Sidecar Custom Certificate module for Terraform
 
 ## Usage
 
-```hcl
-module "cyral_sidecar_certificate_userprovided" {
-  source  = "cyralinc/sidecar-certificate-userprovided/cyral"
+### Base64-encoded certificate
+
+```terraform
+module "cyral_sidecar_custom_certificate" {
+  source  = "cyralinc/sidecar-custom-certificate/cyral"
   version = ">= 1.0.0"
 
-  user_managed_certificate = "-----BEGIN CERTIFICATE-----<certificate content>-----END CERTIFICATE-----"
-  user_managed_private_key = "-----BEGIN PRIVATE KEY-----<pkey content>-----END PRIVATE KEY-----"
+  custom_certificate_base64 = "base64-encoded certificate"
+  custom_private_key_base64 = "base64-encoded private key"
+}
+```
+
+### Raw certificate
+
+```terraform
+module "cyral_sidecar_custom_certificate" {
+  source  = "cyralinc/sidecar-custom-certificate/cyral"
+  version = ">= 1.0.0"
+
+  custom_certificate_base64 = base64encode(
+<<MULTILINE_CERT
+-----BEGIN CERTIFICATE-----
+...
+-----END CERTIFICATE-----
+MULTILINE_CERT
+  )
+
+  custom_private_key_base64 = base64encode(
+<<MULTILINE_CERT
+-----BEGIN PRIVATE KEY-----
+...
+-----END PRIVATE KEY-----
+MULTILINE_CERT
+  )
+}
+```
+
+### PEM file
+
+```terraform
+module "cyral_sidecar_custom_certificate" {
+  source  = "cyralinc/sidecar-custom-certificate/cyral"
+  version = ">= 1.0.0"
+
+  custom_certificate_base64 = base64encode(file("path/to/fullchain.pem"))
+  custom_private_key_base64 = base64encode(file("path/to/privkey.pem"))
 }
 ```
 
@@ -16,7 +55,7 @@ module "cyral_sidecar_certificate_userprovided" {
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.13.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.12.0 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 3.22.0 |
 | <a name="requirement_random"></a> [random](#requirement\_random) | >= 3.1.0 |
 
@@ -43,11 +82,11 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_user_managed_certificate"></a> [user\_managed\_certificate](#input\_user\_managed\_certificate) | Base64-encoded full certificate chain. The user is responsible to manage its validity and renewal. | `string` | n/a | yes |
-| <a name="input_user_managed_private_key"></a> [user\_managed\_private\_key](#input\_user\_managed\_private\_key) | Base64-encoded private key. The user is responsible to manage its validity and renewal. | `string` | n/a | yes |
+| <a name="input_custom_certificate_base64"></a> [custom\_certificate\_base64](#input\_custom\_certificate\_base64) | Base64-encoded full certificate chain. The user is responsible for managing its validity and renewal. | `string` | n/a | yes |
+| <a name="input_custom_private_key_base64"></a> [custom\_private\_key\_base64](#input\_custom\_private\_key\_base64) | Base64-encoded private key. The user is responsible for managing its validity and renewal. | `string` | n/a | yes |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| <a name="output_secret_id"></a> [secret\_id](#output\_secret\_id) | Secret containing the sidecar certificate |
+| <a name="output_secret_id"></a> [secret\_id](#output\_secret\_id) | Secret containing the TLS certificate that will be used by the sidecar. |

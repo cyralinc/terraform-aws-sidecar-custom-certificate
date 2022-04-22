@@ -1,9 +1,9 @@
-variable "user_managed_certificate" {
-  description = "Full certificate chain to be used by Cyral Sidecar. The user is responsible to manage its validity and renewal."
+variable "custom_certificate_base64" {
+  description = "Base64-encoded full certificate chain. The user is responsible for managing its validity and renewal."
   type        = string
 }
 
-variable "user_managed_private_key" {
-  description = "Private key to be used by Cyral Sidecar. The user is responsible to manage its validity and renewal."
+variable "custom_private_key_base64" {
+  description = "Base64-encoded private key. The user is responsible for managing its validity and renewal."
   type        = string
 }
