@@ -2,7 +2,7 @@
 
 See the [sidecar custom certificate](https://cyral.com/docs/sidecars/sidecar-certificates#custom-certificate)
 page and the [use your own certificate](https://cyral.com/docs/sidecars/terraform/certificate#use-your-own-certificate)
-session of our documentation for more information on how to use this module.
+section of our documentation for more information on how to use this module.
 
 ## Usage
 
