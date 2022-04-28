@@ -10,7 +10,7 @@ section of our documentation for more information on how to use this module.
 
 ```terraform
 module "cyral_sidecar_custom_certificate" {
-  source  = "cyralinc/sidecar-custom-certificate/cyral"
+  source  = "cyralinc/sidecar-custom-certificate/aws"
   version = ">= 1.0.0"
 
   custom_certificate_base64 = "base64-encoded certificate"
@@ -22,7 +22,7 @@ module "cyral_sidecar_custom_certificate" {
 
 ```terraform
 module "cyral_sidecar_custom_certificate" {
-  source  = "cyralinc/sidecar-custom-certificate/cyral"
+  source  = "cyralinc/sidecar-custom-certificate/aws"
   version = ">= 1.0.0"
 
   custom_certificate_base64 = base64encode(
@@ -47,7 +47,7 @@ MULTILINE_CERT
 
 ```terraform
 module "cyral_sidecar_custom_certificate" {
-  source  = "cyralinc/sidecar-custom-certificate/cyral"
+  source  = "cyralinc/sidecar-custom-certificate/aws"
   version = ">= 1.0.0"
 
   custom_certificate_base64 = base64encode(file("path/to/fullchain.pem"))
