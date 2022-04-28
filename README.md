@@ -1,4 +1,8 @@
-# Cyral Sidecar Custom Certificate module for Terraform
+# Custom certificate module for Terraform
+
+See the [sidecar certificates](https://cyral.com/docs/sidecars/sidecar-certificates) main
+page and the [Terraform certificate](https://cyral.com/docs/sidecars/terraform/certificate)
+documentation for more information on how to use this module.
 
 ## Usage
 
