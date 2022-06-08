@@ -78,9 +78,14 @@ No modules.
 
 | Name | Type |
 |------|------|
+| [aws_iam_policy.cross_account_access](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
+| [aws_iam_role.cross_account_access](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
+| [aws_iam_role_policy_attachment.cross_account_access](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_secretsmanager_secret.certificate_secret](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret) | resource |
 | [aws_secretsmanager_secret_version.certificate_secret](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret_version) | resource |
 | [random_id.current](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/id) | resource |
+| [aws_iam_policy_document.cross_account_access_secretsmanager](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_policy_document.cross_account_access_trust_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 
 ## Inputs
 
@@ -88,9 +93,11 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | <a name="input_custom_certificate_base64"></a> [custom\_certificate\_base64](#input\_custom\_certificate\_base64) | Base64-encoded full certificate chain. The user is responsible for managing its validity and renewal. | `string` | n/a | yes |
 | <a name="input_custom_private_key_base64"></a> [custom\_private\_key\_base64](#input\_custom\_private\_key\_base64) | Base64-encoded private key. The user is responsible for managing its validity and renewal. | `string` | n/a | yes |
+| <a name="input_secret_access_account_id"></a> [secret\_access\_account\_id](#input\_secret\_access\_account\_id) | (Optional) AWS Account ID that will access the certificate secret. | `any` | n/a | yes |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
 | <a name="output_certificate_secret_arn"></a> [certificate\_secret\_arn](#output\_certificate\_secret\_arn) | Secret containing the TLS certificate that will be used by the sidecar. |
+| <a name="output_sidecar_custom_certificate_role_arn"></a> [sidecar\_custom\_certificate\_role\_arn](#output\_sidecar\_custom\_certificate\_role\_arn) | Role that allows access to certificate secret. Provide it to the Cyral Sidecar module. |
