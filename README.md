@@ -93,7 +93,7 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | <a name="input_custom_certificate_base64"></a> [custom\_certificate\_base64](#input\_custom\_certificate\_base64) | Base64-encoded full certificate chain. The user is responsible for managing its validity and renewal. | `string` | n/a | yes |
 | <a name="input_custom_private_key_base64"></a> [custom\_private\_key\_base64](#input\_custom\_private\_key\_base64) | Base64-encoded private key. The user is responsible for managing its validity and renewal. | `string` | n/a | yes |
-| <a name="input_secret_access_account_id"></a> [secret\_access\_account\_id](#input\_secret\_access\_account\_id) | (Optional) AWS Account ID that will access the certificate secret. | `any` | n/a | yes |
+| <a name="input_secret_access_account_id"></a> [secret\_access\_account\_id](#input\_secret\_access\_account\_id) | (Optional) AWS Account ID that will access the certificate secret. | `string` | n/a | yes |
 
 ## Outputs
 

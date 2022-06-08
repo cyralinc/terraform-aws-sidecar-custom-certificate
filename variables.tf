@@ -10,4 +10,5 @@ variable "custom_private_key_base64" {
 
 variable "secret_access_account_id" {
   description = "(Optional) AWS Account ID that will access the certificate secret."
+  type        = string
 }
